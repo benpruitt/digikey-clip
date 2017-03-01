@@ -1,0 +1,85 @@
+<!doctype html>
+
+<html>
+  <head>
+    <title>digikey-clip settings</title>
+    <style>
+      body {
+        font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
+        font-size: 10pt;
+      }
+      .header {
+        white-space: pre;
+        overflow: hidden;
+        max-width: 400px;
+      }
+      /* List styling + drag decoration */
+      ul {
+        padding: 5px;
+        margin: 5px;
+        min-height:10px;
+        min-width:200px;
+        background-color: #efefef;
+        border-radius: 10px;
+        list-style-type: none;
+      }
+      li {
+        border: 1px solid #ccc;
+        color:#fff;
+        background-color:#0095c6;
+        border-radius: 10px;
+        margin-top: 4px;
+        padding-top: 2px;
+      }
+      span.dragico {
+        content: '....';
+        width: 10px;
+        height: 20px;
+        display: inline-block;
+        overflow: hidden;
+        line-height: 5px;
+        padding: 3px 4px;
+        cursor: move;
+        vertical-align: middle;
+        margin-top: -.25em;
+        margin-right: .3em;
+        font-size: 12px;
+        font-family: sans-serif;
+        letter-spacing: 2px;
+        color: #fff;
+        text-shadow: 1px 0 1px grey;
+      }
+      span.dragico::after {
+        content: '.. .. ..';
+      }
+    </style>
+
+    <script src="popup.js"></script>
+    <!-- Sole ext dep, required for drag+drop lists -->
+    <script src="Sortable.min.js"></script>
+  </head>
+
+  <body>
+    <!-- Active clipboard fields (ordered fields included in metadata copy) -->
+    <div class="header"><a><strong>Active clipboard fields</strong></a></div>
+    <ul id="active-fields">
+      <li data-id="digikey_description"><span class="dragico"></span>digikey_description</li>
+      <li data-id="manufacturer_name"><span class="dragico"></span>manufacturer_name</li>
+      <li data-id="digikey_part_no"><span class="dragico"></span>digikey_part_no</li>
+      <li data-id="digikey_label"><span class="dragico"></span>digikey_label</li>
+      <li data-id="digikey_part_no"><span class="dragico"></span>digikey_part_no</li>
+      <li data-id="digikey_unit_price"><span class="dragico"></span>digikey_unit_price</li>
+    </ul>
+    <!-- Inactive clipboard fields (not included in metadata copy) -->
+    <div class="header"><a><strong>Inactive clipboard fields</strong></a></div>
+    <ul id="inactive-fields">
+      <li data-id="digikey_min_qty"><span class="dragico"></span>digikey_min_qty</li>
+      <li data-id="digikey_url"><span class="dragico"></span>digikey_url</li>
+      <li data-id="datasheet_url"><span class="dragico"></span>datasheet_url</li>
+      <li data-id="[empty-col: qty/board]"><span class="dragico"></span>[empty-col: qty/board]</li>
+      <li data-id="[empty-col: description]"><span class="dragico"></span>[empty-col: description]</li>
+    </ul>
+    <!-- Save button -->
+    <button id="save-btn">Save config</button>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+{
+  "manifest_version": 2,
+
+  "name": "digikey-clip",
+  "description": "Extract part metadata from Digikey pages",
+  "version": "0.1",
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [{
+    "matches": ["http://*/*", "https://*/*"],
+    "js": ["content.js"]
+  }],
+  "permissions": [
+    "tabs",
+    "http://digikey.com/*",
+    "https://digikey.com/*",
+    "storage"
+  ],
+  "icons": {
+    "16": "icon.png"
+  }
+}
