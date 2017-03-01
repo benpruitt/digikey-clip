@@ -56,7 +56,8 @@ var DIGIKEY_GETTERS = {
   'digikey_description': genChildTextGetter('tr-description', [], []),
   'manufacturer_name': genChildTextGetter('tr-vendor', ['span', 'a', 'span'],
                                           [0, 0, 0]),
-  'digikey_part_no': genChildTextGetter('tr-dkPartNumber', ['a'], [0]),
+  'manufacturer_part_num': genChildTextGetter('tr-mfgPartNumber', ['a'], [0]),
+  'digikey_part_num': genChildTextGetter('tr-dkPartNumber', ['a'], [0]),
   'digikey_label': function(){return 'Digikey';},
   'digikey_unit_price': genChildTextGetter('tr-unitPrice', [], []),
   'digikey_min_qty': genChildTextGetter('tr-minQty', [], []),
@@ -68,19 +69,20 @@ var DIGIKEY_GETTERS = {
   'datasheet_url': function(el) {
     var cell_el = el.getElementsByClassName('tr-datasheet')[0];
     var a_el = getNestedChild(cell_el, ['a'], [0]);
-    return a_el.href;
+    return 'https://www.digikey.com' + a_el.href;
   }
 }
 
 // Click handler for the injected copy buttons
 function handleCopyClick(ev) {
   ev.preventDefault();
-  chrome.storage.local.get(
+  chrome.storage.sync.get(
     ['active-fields'],
     function(res){
       var acfs = res['active-fields'];
       if (!acfs) {
         alert('digikey-clip settings must be saved before copying!');
+        return;
       }
       var part_row_el = ev.target.parentNode.parentNode.parentNode;
       var clip_text = '';
