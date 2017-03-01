@@ -64,12 +64,12 @@ var DIGIKEY_GETTERS = {
   'digikey_url': function(el) {
     var cell_el = el.getElementsByClassName('tr-dkPartNumber')[0];
     var a_el = getNestedChild(cell_el, ['a'], [0]);
-    return a_el.href;
+    return 'https://www.digikey.com' + a_el.href;
   },
   'datasheet_url': function(el) {
     var cell_el = el.getElementsByClassName('tr-datasheet')[0];
     var a_el = getNestedChild(cell_el, ['a'], [0]);
-    return 'https://www.digikey.com' + a_el.href;
+    return a_el.href;
   }
 }
 
