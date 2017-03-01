@@ -93,6 +93,8 @@ function handleCopyClick(ev) {
         clip_text += '\t';
       }
       executeCopy(clip_text.substring(0, clip_text.length-1));
+      ev.target.innerHTML = 'copied!';
+      setTimeout(function() {ev.target.innerHTML='copy'}, 500);
     }
   )
 }
