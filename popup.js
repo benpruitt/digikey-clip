@@ -42,10 +42,10 @@ document.addEventListener('DOMContentLoaded', function() {
       // we use sortable js (https://github.com/RubaXa/Sortable) for our
       // draggable lists
       var s1 = Sortable.create(el1, {
-        group: "localStorage-test",
+        group: "digikey-clip",
       });
       var s2 = Sortable.create(el2, {
-        group: "localStorage-test",
+        group: "digikey-clip",
       });
       // when the user clicks save we drop everything into the sync local
       // storage
