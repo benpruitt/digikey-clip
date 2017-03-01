@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // we'll store our active fields in the chrome sync storage so that they
   // will persist across devices if the user is logged in
   chrome.storage.sync.get(
-    ['active-fields', 'inactive-fields'],
+    ['active-fields', 'inactive-fields', 'excel-urls'],
     function(res){
       // if the user has not used this extension then the defaults will be
       // left in place, otherwise we will dynamically create the lists from
@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (res['active-fields'] && res['inactive-fields']) {
         createList('active-fields', res['active-fields']);
         createList('inactive-fields', res['inactive-fields']);
+        document.getElementById('shorten-url-chk').checked = res['excel-urls'];
       }
       var el1 = document.getElementById('active-fields');
       var el2 = document.getElementById('inactive-fields');
@@ -52,7 +53,8 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById("save-btn").onclick = function() {
         chrome.storage.sync.set({
           'active-fields': s1.toArray(),
-          'inactive-fields': s2.toArray()
+          'inactive-fields': s2.toArray(),
+          'excel-urls': document.getElementById('shorten-url-chk').checked
         });
       }
     }

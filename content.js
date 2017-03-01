@@ -56,15 +56,33 @@ var DIGIKEY_GETTERS = {
   'digikey_description': genChildTextGetter('tr-description', [], []),
   'manufacturer_name': genChildTextGetter('tr-vendor', ['span', 'a', 'span'],
                                           [0, 0, 0]),
-  'manufacturer_part_num': genChildTextGetter('tr-mfgPartNumber', ['a'], [0]),
-  'digikey_part_num': genChildTextGetter('tr-dkPartNumber', ['a'], [0]),
+  'manufacturer_part_num': function(el, opts) {
+    var part_num = genChildTextGetter('tr-mfgPartNumber', ['a'], [0])(el);
+    if (opts.excel_urls) {
+      var url = DIGIKEY_GETTERS.datasheet_url(el);
+      var excel_txt = '=HYPERLINK("' + url + '","' + part_num + '")';
+      return excel_txt;
+    } else {
+      return part_num;
+    }
+  },
+  'digikey_part_num': function(el, opts) {
+    var part_num = genChildTextGetter('tr-dkPartNumber', ['a'], [0])(el);
+    if (opts.excel_urls) {
+      var url = DIGIKEY_GETTERS.digikey_url(el);
+      var excel_txt = '=HYPERLINK("' + url + '","' + part_num + '")';
+      return excel_txt;
+    } else {
+      return part_num;
+    }
+  },
   'digikey_label': function(){return 'Digikey';},
   'digikey_unit_price': genChildTextGetter('tr-unitPrice', [], []),
   'digikey_min_qty': genChildTextGetter('tr-minQty', [], []),
   'digikey_url': function(el) {
     var cell_el = el.getElementsByClassName('tr-dkPartNumber')[0];
     var a_el = getNestedChild(cell_el, ['a'], [0]);
-    return 'https://www.digikey.com' + a_el.href;
+    return a_el.href;
   },
   'datasheet_url': function(el) {
     var cell_el = el.getElementsByClassName('tr-datasheet')[0];
@@ -77,7 +95,7 @@ var DIGIKEY_GETTERS = {
 function handleCopyClick(ev) {
   ev.preventDefault();
   chrome.storage.sync.get(
-    ['active-fields'],
+    ['active-fields', 'excel-urls'],
     function(res){
       var acfs = res['active-fields'];
       if (!acfs) {
@@ -89,7 +107,9 @@ function handleCopyClick(ev) {
       for (var i = 0; i < acfs.length; i++) {
         console.log('[digikey-clip] getting field:', acfs[i]);
         var g_func = DIGIKEY_GETTERS[acfs[i]];
-        if (g_func) {clip_text += g_func(part_row_el);}
+        if (g_func) {
+          clip_text += g_func(part_row_el, {excel_urls: res['excel-urls']});
+        }
         clip_text += '\t';
       }
       executeCopy(clip_text.substring(0, clip_text.length-1));

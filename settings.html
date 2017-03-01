@@ -79,7 +79,17 @@
       <li data-id="[empty-col: qty/board]"><span class="dragico"></span>[empty-col: qty/board]</li>
       <li data-id="[empty-col: description]"><span class="dragico"></span>[empty-col: description]</li>
     </ul>
+    <!-- Shorten excel url -->
+    <div style="padding: 5px">
+    <p style='font-size:8pt'>
+      Add "=HYPERLINK(..." cruft to the digikey part num and manufacturer
+      part num to inject the part url and datasheet url, respectively
+    </p>
+    <input id="shorten-url-chk" type="checkbox"><label for="id">Inject Excel URLs</label>
+    </div>
     <!-- Save button -->
-    <button id="save-btn">Save config</button>
+    <div style="text-align:center">
+      <button id="save-btn">Save config</button>
+    </div>
   </body>
 </html>
