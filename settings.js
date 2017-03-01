@@ -1,5 +1,5 @@
 /**
- * popup.js
+ * settings.js
  * (c) Ben Pruitt, 2017 [MIT License, see LICENSE]
  *
  * js logic for the settings dialog for digikey-clip
